@@ -5,10 +5,14 @@ import Services from "../services/Services.jsx";
 import About from "../About/About.jsx";
 import "./Home.css";
 
-import Poster from "../../assets/poster.png";
-import OT from "../../assets/ot.png";
-import Reception from "../../assets/reception.png";
-import Hospital from "../../assets/hospital.png";
+
+
+import Poster from "../../assets/Poster.png";
+import OT from "../../assets/OT.png";
+import Reception from "../../assets/Reception.png";
+import Hospital from "../../assets/Hospital.png";
+
+
 
 export default function Home({ onBookAppointment }) {
     const images = [Poster, OT, Reception, Hospital];
