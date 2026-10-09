@@ -1,0 +1,41 @@
+/* Force-hide Google Translate top banner iframe */
+
+* {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+  --primary-blue: #294b8f;
+}
+
+/* Apply your specific blue to all buttons, links, and headers globally */
+a, 
+button, 
+.btn, 
+.nav-link, 
+.navbar, 
+header {
+  color: var(--primary-blue);
+}
+
+/* For buttons and headers that have a blue background */
+.bg-blue, 
+button[type="submit"], 
+.navbar, 
+.btn-primary {
+  background-color: #294b8f !important;
+  border-color: #294b8f !important;
+}
+iframe.goog-te-banner-frame {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+}
+
+/* Force body position back to top so it doesn't leave a white gap */
+body {
+  top: 0px !important;
+  position: static !important;
+ 
+}
