@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import DoctorCard from "./DoctorCard.jsx";
+import DoctorCard from "./DoctorData.jsx";
 import "./Doctor.css";
 import defaultDoctorImage from "../../assets/Dr Sandeep Kumar.png";
 

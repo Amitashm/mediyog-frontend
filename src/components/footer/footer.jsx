@@ -119,21 +119,7 @@ const Footer = ({ onBookAppointment }) => {
                         >
                             <FaFacebookF />
                         </a>
-
-                        <a
-                            href="#twitter"
-                            aria-label="Twitter"
-                        >
-                            <FaTwitter />
-                        </a>
-
-                        <a
-                            href="#youtube"
-                            aria-label="YouTube"
-                        >
-                            <FaYoutube />
-                        </a>
-
+ 
                         <a
                             href="#linkedin"
                             aria-label="LinkedIn"
@@ -156,7 +142,7 @@ const Footer = ({ onBookAppointment }) => {
 
                 <p>
                     © Mediyog Hospital All Rights Reserved by
-                    Mediyog Hospital | Created &amp; Managed by Abhisek &Teams 
+                    Mediyog Hospital | Created &amp; Managed by Abhishek & Amitash 
                 </p>
 
             </div>

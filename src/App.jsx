@@ -1,5 +1,11 @@
+
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Navigate,
+} from "react-router-dom";
 
 import Header from "./components/header/Header.jsx";
 import Home from "./components/home/Home.jsx";
@@ -13,6 +19,7 @@ import AdminLogin from "./components/Admin/AdminLogin.jsx";
 import AdminDashboard from "./components/Admin/AdminDashboard.jsx";
 
 import AppointmentModal from "./components/AppointmentModal/AppointmentModal.jsx";
+import WelcomePopup from "./components/WelcomePopup/WelcomePopup.jsx";
 
 import "./App.css";
 
@@ -20,14 +27,20 @@ import "./App.css";
 // SECURE PROTECTED ROUTE GUARD (10-Min Expiration)
 // --------------------------------------------------
 const ProtectedRoute = ({ children }) => {
-    const isAuthenticated = localStorage.getItem("isAdminAuthenticated") === "true";
-    const sessionExpiry = parseInt(localStorage.getItem("sessionExpiry") || "0", 10);
+    const isAuthenticated =
+        localStorage.getItem("isAdminAuthenticated") === "true";
+
+    const sessionExpiry = parseInt(
+        localStorage.getItem("sessionExpiry") || "0",
+        10
+    );
+
     const now = Date.now();
 
-    // If not authenticated OR session has expired (> 10 mins) -> Clear and block
     if (!isAuthenticated || now > sessionExpiry) {
         localStorage.removeItem("isAdminAuthenticated");
         localStorage.removeItem("sessionExpiry");
+
         return <Navigate to="/admin" replace />;
     }
 
@@ -35,11 +48,13 @@ const ProtectedRoute = ({ children }) => {
 };
 
 function App() {
-
     const [isAppointmentOpen, setIsAppointmentOpen] = useState(false);
     const [selectedDoctor, setSelectedDoctor] = useState(null);
 
-    // When patient clicks Book Appointment on a doctor
+    // Welcome popup appears whenever the app is opened or refreshed
+    const [isWelcomeOpen, setIsWelcomeOpen] = useState(true);
+
+    // Open appointment modal
     const handleBookAppointment = (doctor) => {
         setSelectedDoctor(doctor);
         setIsAppointmentOpen(true);
@@ -53,18 +68,27 @@ function App() {
 
     return (
         <Router>
-
             <div className="app-wrapper">
-
                 <Header />
 
+                {/* Welcome Popup */}
+                {isWelcomeOpen && (
+                    <WelcomePopup
+                        onClose={() => setIsWelcomeOpen(false)}
+                        onBookAppointment={handleBookAppointment}
+                    />
+                )}
+
                 <main className="main-content">
-
                     <Routes>
-
-                        <Route path="/" element={<Home
-                            onBookAppointment={handleBookAppointment}
-                        />} />
+                        <Route
+                            path="/"
+                            element={
+                                <Home
+                                    onBookAppointment={handleBookAppointment}
+                                />
+                            }
+                        />
 
                         <Route
                             path="/doctors"
@@ -95,7 +119,7 @@ function App() {
                             element={<AdminLogin />}
                         />
 
-                        {/* SECURED ADMIN DASHBOARD ROUTE */}
+                        {/* Secured Admin Dashboard Route */}
                         <Route
                             path="/admin/dashboard"
                             element={
@@ -104,22 +128,20 @@ function App() {
                                 </ProtectedRoute>
                             }
                         />
-
                     </Routes>
-
                 </main>
 
-                <Footer onBookAppointment={() => handleBookAppointment(null)} />
+                <Footer
+                    onBookAppointment={() => handleBookAppointment(null)}
+                />
 
-                {/* Appointment Modal */}
+                {/* Existing Appointment Modal */}
                 <AppointmentModal
                     isOpen={isAppointmentOpen}
                     onClose={handleCloseAppointment}
                     doctor={selectedDoctor}
                 />
-
             </div>
-
         </Router>
     );
 }
